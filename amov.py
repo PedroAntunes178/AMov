@@ -33,7 +33,7 @@ def get_file(str):
 	direc = 'files/' + str + '.txt'
 	print(direc)
 	data=pd.read_csv(direc, sep="\t", header=None, engine='python', skiprows=3)
-	print(data)
+	return data
 
 def get_info():
 	point = input("Em que sec queres começar a contar: ")
