@@ -1,6 +1,13 @@
 import tkinter as tk
 from tkinter import ttk
-
+import matplotlib
+matplotlib.use("TkAgg")
+from matplotlib.backends.backend_tkagg import (
+    FigureCanvasTkAgg, NavigationToolbar2Tk)
+# Implement the default Matplotlib key bindings.
+from matplotlib.backend_bases import key_press_handler
+from matplotlib.figure import Figure
+import numpy as np
 
 LARGE_FONT= ("Verdana", 12)
 
@@ -9,7 +16,7 @@ class SeaofBTCapp(tk.Tk):
 
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
-        tk.Tk.iconbitmap(self,default='app_icon.ico')
+        tk.Tk.iconbitmap(self,default='src/app_icon.ico')
         tk.Tk.wm_title(self, "Movement Analysis")
         container = tk.Frame(self)
         container.pack(side="top", fill="both", expand = True)
