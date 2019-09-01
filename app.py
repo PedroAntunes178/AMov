@@ -83,6 +83,8 @@ class AcelerationPage(tk.Frame):
         a.clear()
         a.plot(tempo, var_acc, "#00A3E0", label="Variação da aceleração ao longo do tempo.")
         a.set_title('Variação da aceleração ao longo do tempo.')
+        a.set_xlabel('sec')
+        a.set_ylabel('variação aceleração')
 #
 #    def on_key_press(self, event):
 #        print("you pressed {}".format(event.key))
