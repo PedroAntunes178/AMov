@@ -117,10 +117,10 @@ class AcelerationPage(tk.Frame):
 
     def get_info(self, point, var_acc, currentValue):
     	#point = input("Em que sec queres começar a contar: ")
-        val = 0
+        val = int(currentValue)
     	for k in range(int(point)*200,int(point)*200+1200):
     		val = val + var_acc[k]
-
+        currentValue = str(val)
     	print(val)
 
     def get_file(self, str):
