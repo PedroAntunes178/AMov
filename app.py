@@ -16,16 +16,8 @@ from amov import *
 
 LARGE_FONT= ("Verdana", 12)
 style.use('ggplot')
-f = plt.figure(figsize=(5,5), dpi=100)
+f = plt.figure(2)
 a = f.add_subplot(111)
-
-def animate(i):
-    tempo = list()
-    var_acc = list()
-    data = get_file()
-    plot_graph(tempo, var_acc, data)
-    a.clear()
-    a.plot(tempo, var_acc)
 
 
 class AMov(tk.Tk):
@@ -85,6 +77,8 @@ class AcelerationPage(tk.Frame):
         a.set_title('Variação da aceleração ao longo do tempo.')
         a.set_xlabel('sec')
         a.set_ylabel('variação aceleração')
+        a.set_xlim(0, 60)
+        a.set_ylim(0, 6)
 #
 #    def on_key_press(self, event):
 #        print("you pressed {}".format(event.key))
