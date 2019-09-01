@@ -27,3 +27,4 @@ def get_info(point, var_acc, val):
 	val = 0
 	for k in range(int(point)*200,int(point)*200+1200):
 		val = val + var_acc[k]
+	print(val)

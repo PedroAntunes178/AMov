@@ -72,7 +72,7 @@ class AcelerationPage(tk.Frame):
         button1 = ttk.Button(self, text="Get data",
                             command=lambda: self.draw_graphic(doc_name.get(), tempo, var_acc))
         button1.pack(side=tk.LEFT)
-        labe3 = tk.Label(self, textvariable=val)
+        labe3 = tk.Label(self, text=val)
         labe3.pack(side=tk.RIGHT)
         button2 = ttk.Button(self, text="SumUP 1min of movement",
                             command=lambda: get_info(sec.get(), var_acc, val))
