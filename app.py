@@ -1,5 +1,3 @@
-import tkinter as tk
-from tkinter import ttk
 import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import (
@@ -7,9 +5,25 @@ from matplotlib.backends.backend_tkagg import (
 # Implement the default Matplotlib key bindings.
 from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
+import matplotlib.animation as animation
+from matplotlib import style
+import tkinter as tk
+from tkinter import ttk
 import numpy as np
+from amov import *
 
 LARGE_FONT= ("Verdana", 12)
+style.use('ggplot')
+f = Figure(figsize=(5,5), dpi=100)
+a = f.add_subplot(111)
+
+def animate(i):
+    tempo = list()
+    var_acc = list()
+    data = get_file('caoconvulcao')
+    plot_graph(tempo, var_acc, data)
+    a.clear()
+    a.plot(tempo, var_acc)
 
 
 class SeaofBTCapp(tk.Tk):
@@ -46,6 +60,9 @@ class StartPage(tk.Frame):
         button2 = ttk.Button(self, text="Visit Page 2",
                             command=lambda: controller.show_frame(PageTwo))
         button2.pack()
+        button3 = ttk.Button(self, text="Graph Page",
+                            command=lambda: controller.show_frame(PageThree))
+        button3.pack()
 
 
 class PageOne(tk.Frame):
@@ -82,11 +99,23 @@ class PageThree(tk.Frame):
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text="Graph Page!", font=LARGE_FONT)
         label.pack(pady=10,padx=10)
-
         button1 = ttk.Button(self, text="Back to Home",
                             command=lambda: controller.show_frame(StartPage))
         button1.pack()
+        canvas = FigureCanvasTkAgg(f, self)  # A tk.DrawingArea.
+        canvas.draw()
+        canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+        toolbar = NavigationToolbar2Tk(canvas, self)
+        toolbar.update()
+        canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+
+        def on_key_press(event):
+            print("you pressed {}".format(event.key))
+            key_press_handler(event, canvas, toolbar)
+
+        canvas.mpl_connect("key_press_event", on_key_press)
 
 
 app = SeaofBTCapp()
+ani = animation.FuncAnimation(f, animate, interval=1000)
 app.mainloop()

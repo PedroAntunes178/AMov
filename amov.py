@@ -9,10 +9,7 @@ def creat_grath():
 	plt.ylabel('Variação da aceleração')
 	plt.xlabel('sec')
 
-def plot_graph():
-	var_acc = list()
-	tempo = list()
-	index = 2
+def plot_graph(tempo, var_acc, data):
 	for k in range(len(data[0])-1):
 		soma = 0
 		for index in [2,3,4]:
@@ -20,7 +17,6 @@ def plot_graph():
 		var_acc.append(soma)
 	for k in range(1,len(data[0])):
 		tempo.append(data[0][k]/200)
-	ax.plot(tempo, var_acc)
 
 def clean_graph():
 	ax.clear()
