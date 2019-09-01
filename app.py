@@ -10,8 +10,6 @@ from matplotlib.figure import Figure
 from matplotlib import style
 import tkinter as tk
 from tkinter import ttk
-import pandas as pd
-import numpy as np
 from amov import *
 
 LARGE_FONT= ("Verdana", 12)
@@ -63,21 +61,27 @@ class AcelerationPage(tk.Frame):
     def __init__(self, parent, controller):
         tempo = list()
         var_acc = list()
-        sec = 0
+        val = 0
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text="Graph Page!", font=LARGE_FONT)
         label.pack(pady=10,padx=10)
+        labe2 = tk.Label(self, text="File Name: ")
+        labe2.pack(side=tk.LEFT)
         doc_name = ttk.Entry(self)
         doc_name.pack(side=tk.LEFT)
         button1 = ttk.Button(self, text="Get data",
                             command=lambda: self.draw_graphic(doc_name.get(), tempo, var_acc))
         button1.pack(side=tk.LEFT)
-        button2 = ttk.Button(self, text="Sumup 1min movement",
-                            command=lambda: get_info(var_acc, sec))
+        labe3 = tk.Label(self, textvariable=val)
+        labe3.pack(side=tk.RIGHT)
+        button2 = ttk.Button(self, text="SumUP 1min of movement",
+                            command=lambda: get_info(sec.get(), var_acc, val))
         button2.pack(side=tk.RIGHT)
+        sec = ttk.Entry(self)
+        sec.pack(side=tk.RIGHT)
         button3 = ttk.Button(self, text="Clear All",
-                            command=lambda: clean_graph(tempo, var_acc))
-        button3.pack(side=tk.RIGHT)
+                            command=lambda: clean_values(tempo, var_acc))
+        button3.pack(side=tk.BOTTOM)
         canvas = FigureCanvasTkAgg(f, self)  # A tk.DrawingArea.
         canvas.draw()
         canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
