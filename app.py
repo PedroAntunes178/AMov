@@ -19,6 +19,9 @@ style.use('ggplot')
 f = plt.figure(2)
 a = f.add_subplot(111)
 
+def quit():
+    quit()
+    
 def popupmsg(msg):
     popup = tk.Tk()
     popup.wm_title("!")
