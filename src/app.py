@@ -61,7 +61,7 @@ class AcelerationPage(tk.Frame):
     def __init__(self, parent, controller):
         tempo = list()
         var_acc = list()
-        val = 0
+        currentValue = StringVar(self, "0")
         tk.Frame.__init__(self, parent)
         interfaseframe = tk.Frame(self)
         interfaseframe.pack(side=tk.TOP)
@@ -75,8 +75,10 @@ class AcelerationPage(tk.Frame):
         sec = ttk.Entry(interfaseframe)
         sec.grid(row=1, column=0)
         button2 = ttk.Button(interfaseframe, text="SumUP 1min of movement",
-                            command=lambda: self.get_info(sec.get(), var_acc, val))
+                            command=lambda: self.get_info(sec.get(), var_acc, currentValue))
         button2.grid(row=1, column=1)
+        label2 = tk.Label(interfaseframe, textvariable=currentValue)
+        label2.grid(row=1, column=2)
         button3 = ttk.Button(self, text="Clear All",
                             command=lambda: self.clean_values(tempo, var_acc))
         button3.pack(side=tk.BOTTOM)
@@ -113,11 +115,12 @@ class AcelerationPage(tk.Frame):
     	for k in range(1,len(data[0])):
     		tempo.append(data[0][k]/200)
 
-    def get_info(self, point, var_acc, val):
+    def get_info(self, point, var_acc, currentValue):
     	#point = input("Em que sec queres começar a contar: ")
-    	val = 0
+        val = 0
     	for k in range(int(point)*200,int(point)*200+1200):
     		val = val + var_acc[k]
+
     	print(val)
 
     def get_file(self, str):
