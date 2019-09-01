@@ -10,11 +10,6 @@ def plot_graph(tempo, var_acc, data):
 	for k in range(1,len(data[0])):
 		tempo.append(data[0][k]/200)
 
-def clean_values(tempo, var_acc):
-	for k in range(len(var_acc)):
-		var_acc.pop()
-		tempo.pop()
-
 def get_file(str):
 	#doc = input("Escreva o nome do documento: ")
 	direc = 'files/' + str + '.txt'

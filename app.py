@@ -64,7 +64,7 @@ class AcelerationPage(tk.Frame):
         val = 0
         tk.Frame.__init__(self, parent)
         interfaseframe = tk.Frame(self)
-        interfaseframe.pack(side=tk.TOP, fill="both")
+        interfaseframe.pack(side=tk.TOP)
         label1 = tk.Label(interfaseframe, text="File Name: ")
         label1.grid(row=0, column=0)
         doc_name = ttk.Entry(interfaseframe)
@@ -78,13 +78,13 @@ class AcelerationPage(tk.Frame):
                             command=lambda: get_info(sec.get(), var_acc, val))
         button2.grid(row=1, column=1)
         button3 = ttk.Button(self, text="Clear All",
-                            command=lambda: clean_values(tempo, var_acc))
+                            command=lambda: self.clean_values(tempo, var_acc))
         button3.pack(side=tk.BOTTOM)
-        toolbar = NavigationToolbar2Tk(canvas, self)
-        toolbar.update()
-        canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
         canvas = FigureCanvasTkAgg(f, self)  # A tk.DrawingArea.
         canvas.draw()
+        canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+        toolbar = NavigationToolbar2Tk(canvas, self)
+        toolbar.update()
         canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
     def draw_graphic(self, str, tempo, var_acc):
@@ -97,6 +97,13 @@ class AcelerationPage(tk.Frame):
         a.set_ylabel('variação aceleração')
         a.set_xlim(0, 60)
         a.set_ylim(0, 6)
+
+    def clean_values(self, tempo, var_acc):
+        a.clear()
+    	for k in (range(len(var_acc))):
+            var_acc.pop()
+    		tempo.pop()
+
 #
 #    def on_key_press(self, event):
 #        print("you pressed {}".format(event.key))
