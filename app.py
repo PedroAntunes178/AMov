@@ -9,6 +9,7 @@ import matplotlib.animation as animation
 from matplotlib import style
 import tkinter as tk
 from tkinter import ttk
+import pandas as pd
 import numpy as np
 from amov import *
 
@@ -20,13 +21,13 @@ a = f.add_subplot(111)
 def animate(i):
     tempo = list()
     var_acc = list()
-    data = get_file('caoconvulcao')
+    data = get_file()
     plot_graph(tempo, var_acc, data)
     a.clear()
     a.plot(tempo, var_acc)
 
 
-class SeaofBTCapp(tk.Tk):
+class AMov(tk.Tk):
 
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
@@ -37,7 +38,7 @@ class SeaofBTCapp(tk.Tk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
         self.frames = {}
-        for F in (StartPage, PageOne, PageTwo, PageThree):
+        for F in (StartPage, AcelerationPage):
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
@@ -54,46 +55,14 @@ class StartPage(tk.Frame):
         tk.Frame.__init__(self,parent)
         label = ttk.Label(self, text="Start Page", font=LARGE_FONT)
         label.pack(pady=10,padx=10)
-        button = ttk.Button(self, text="Visit Page 1",
-                            command=lambda: controller.show_frame(PageOne))
-        button.pack()
-        button2 = ttk.Button(self, text="Visit Page 2",
-                            command=lambda: controller.show_frame(PageTwo))
-        button2.pack()
-        button3 = ttk.Button(self, text="Graph Page",
-                            command=lambda: controller.show_frame(PageThree))
-        button3.pack()
+        doc_name = ttk.Entry(self)
+        doc_name.pack()
+        button_graphic = ttk.Button(self, text="Graphic Page",
+                            command=lambda: controller.show_frame(AcelerationPage))
+        button_graphic.pack()
 
 
-class PageOne(tk.Frame):
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        label = ttk.Label(self, text="Page One!!!", font=LARGE_FONT)
-        label.pack(pady=10,padx=10)
-        button1 = ttk.Button(self, text="Back to Home",
-                            command=lambda: controller.show_frame(StartPage))
-        button1.pack()
-        button2 = ttk.Button(self, text="Page Two",
-                            command=lambda: controller.show_frame(PageTwo))
-        button2.pack()
-
-
-class PageTwo(tk.Frame):
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        label = ttk.Label(self, text="Page Two!!!", font=LARGE_FONT)
-        label.pack(pady=10,padx=10)
-        button1 = ttk.Button(self, text="Back to Home",
-                            command=lambda: controller.show_frame(StartPage))
-        button1.pack()
-        button2 = ttk.Button(self, text="Page One",
-                            command=lambda: controller.show_frame(PageOne))
-        button2.pack()
-
-
-class PageThree(tk.Frame):
+class AcelerationPage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -116,6 +85,6 @@ class PageThree(tk.Frame):
         canvas.mpl_connect("key_press_event", on_key_press)
 
 
-app = SeaofBTCapp()
+app = AMov()
 ani = animation.FuncAnimation(f, animate, interval=1000)
 app.mainloop()
