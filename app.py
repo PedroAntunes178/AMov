@@ -63,28 +63,28 @@ class AcelerationPage(tk.Frame):
         var_acc = list()
         val = 0
         tk.Frame.__init__(self, parent)
-        labe1 = tk.Label(self, text="File Name: ")
-        labe1.grid(row=0, column=0)
-        doc_name = ttk.Entry(self)
+        interfaseframe = tk.Frame(self)
+        interfaseframe.pack(side=tk.TOP, fill="both")
+        label1 = tk.Label(interfaseframe, text="File Name: ")
+        label1.grid(row=0, column=0)
+        doc_name = ttk.Entry(interfaseframe)
         doc_name.grid(row=0, column=1)
-        button1 = ttk.Button(self, text="Get data",
+        button1 = ttk.Button(interfaseframe, text="Get data",
                             command=lambda: self.draw_graphic(doc_name.get(), tempo, var_acc))
         button1.grid(row=0, column=2)
-        sec = ttk.Entry(self)
+        sec = ttk.Entry(interfaseframe)
         sec.grid(row=1, column=0)
-        button2 = ttk.Button(self, text="SumUP 1min of movement",
+        button2 = ttk.Button(interfaseframe, text="SumUP 1min of movement",
                             command=lambda: get_info(sec.get(), var_acc, val))
         button2.grid(row=1, column=1)
-        labe2 = tk.Label(self, text=val)
-        labe2.grid(row=1, column=2)
         button3 = ttk.Button(self, text="Clear All",
                             command=lambda: clean_values(tempo, var_acc))
         button3.pack(side=tk.BOTTOM)
-        canvas = FigureCanvasTkAgg(f, self)  # A tk.DrawingArea.
-        canvas.draw()
-        canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
         toolbar = NavigationToolbar2Tk(canvas, self)
         toolbar.update()
+        canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+        canvas = FigureCanvasTkAgg(f, self)  # A tk.DrawingArea.
+        canvas.draw()
         canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
     def draw_graphic(self, str, tempo, var_acc):
