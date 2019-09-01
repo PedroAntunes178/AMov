@@ -38,6 +38,13 @@ class AMov(tk.Tk):
         container.pack(side="top", fill="both", expand = True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
+        menubar = tk.Menu(container)
+        filemenu = tk.Menu(menubar, tearoff=0)
+        filemenu.add_command(label="Save settings", command = lambda: popupmsg("Not supported just yet!"))
+        filemenu.add_separator()
+        filemenu.add_command(label="Exit", command=quit)
+        menubar.add_cascade(label="File", menu=filemenu)
+        tk.Tk.config(self, menu=menubar)
         self.frames = {}
         for F in (AcelerationPage,):
             frame = F(container, self)
@@ -85,4 +92,5 @@ class AcelerationPage(tk.Frame):
 
 
 app = AMov()
+app.geometry("1280x720")
 app.mainloop()
