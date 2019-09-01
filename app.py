@@ -19,9 +19,6 @@ style.use('ggplot')
 f = plt.figure(2)
 a = f.add_subplot(111)
 
-def quit():
-    quit()
-    
 def popupmsg(msg):
     popup = tk.Tk()
     popup.wm_title("!")
@@ -64,14 +61,23 @@ class AMov(tk.Tk):
 class AcelerationPage(tk.Frame):
 
     def __init__(self, parent, controller):
+        tempo = list()
+        var_acc = list()
+        sec = 0
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text="Graph Page!", font=LARGE_FONT)
         label.pack(pady=10,padx=10)
         doc_name = ttk.Entry(self)
         doc_name.pack(side=tk.LEFT)
         button1 = ttk.Button(self, text="Get data",
-                            command=lambda: self.draw_graphic(doc_name.get()))
-        button1.pack(side=tk.LEFT)
+                            command=lambda: self.draw_graphic(doc_name.get(), tempo, var_acc))
+        button1.pack(side=tk.RIGHT)
+        button2 = ttk.Button(self, text="Sumup 1min movement",
+                            command=lambda: get_info(sec))
+        button2.pack(side=tk.RIGHT)
+        button3 = ttk.Button(self, text="Clear All",
+                            command=lambda: clean_graph(tempo, var_acc))
+        button3.pack(side=tk.LEFT)
         canvas = FigureCanvasTkAgg(f, self)  # A tk.DrawingArea.
         canvas.draw()
         canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
@@ -79,9 +85,7 @@ class AcelerationPage(tk.Frame):
         toolbar.update()
         canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
-    def draw_graphic(self, str):
-        tempo = list()
-        var_acc = list()
+    def draw_graphic(self, str, tempo, var_acc):
         data = get_file(str)
         plot_graph(tempo, var_acc, data)
         a.clear()

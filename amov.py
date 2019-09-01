@@ -17,7 +17,7 @@ def plot_graph(tempo, var_acc, data):
 	for k in range(1,len(data[0])):
 		tempo.append(data[0][k]/200)
 
-def clean_graph():
+def clean_graph(tempo, var_acc):
 	ax.clear()
 	for k in range(len(var_acc)):
 		var_acc.pop()
@@ -30,9 +30,8 @@ def get_file(str):
 	data=pd.read_csv(direc, sep="\t", header=None, engine='python', skiprows=3)
 	return data
 
-def get_info():
-	point = input("Em que sec queres começar a contar: ")
-	k = 0
+def get_info(point):
+	#point = input("Em que sec queres começar a contar: ")
 	val = 0
 	for k in range(int(point)*200,int(point)*200+1200):
 		val = val + var_acc[k]
