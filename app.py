@@ -1,11 +1,12 @@
 import matplotlib
 matplotlib.use("TkAgg")
+import matplotlib.animation as animation
+import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg, NavigationToolbar2Tk)
 # Implement the default Matplotlib key bindings.
 from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
-import matplotlib.animation as animation
 from matplotlib import style
 import tkinter as tk
 from tkinter import ttk
@@ -15,7 +16,7 @@ from amov import *
 
 LARGE_FONT= ("Verdana", 12)
 style.use('ggplot')
-f = Figure(figsize=(5,5), dpi=100)
+f = plt.figure(figsize=(5,5), dpi=100)
 a = f.add_subplot(111)
 
 def animate(i):
