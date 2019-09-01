@@ -71,13 +71,13 @@ class AcelerationPage(tk.Frame):
         doc_name.pack(side=tk.LEFT)
         button1 = ttk.Button(self, text="Get data",
                             command=lambda: self.draw_graphic(doc_name.get(), tempo, var_acc))
-        button1.pack(side=tk.RIGHT)
+        button1.pack(side=tk.LEFT)
         button2 = ttk.Button(self, text="Sumup 1min movement",
-                            command=lambda: get_info(sec))
+                            command=lambda: get_info(var_acc, sec))
         button2.pack(side=tk.RIGHT)
         button3 = ttk.Button(self, text="Clear All",
                             command=lambda: clean_graph(tempo, var_acc))
-        button3.pack(side=tk.LEFT)
+        button3.pack(side=tk.RIGHT)
         canvas = FigureCanvasTkAgg(f, self)  # A tk.DrawingArea.
         canvas.draw()
         canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
