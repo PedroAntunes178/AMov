@@ -31,7 +31,7 @@ class AMov(tk.Tk):
 
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
-        tk.Tk.iconbitmap(self,default='src/app_icon.ico')
+        tk.Tk.iconbitmap(self,default='app_icon.ico')
         tk.Tk.wm_title(self, "Movement Analysis")
         container = tk.Frame(self)
         container.pack(side="top", fill="both", expand = True)
@@ -75,7 +75,7 @@ class AcelerationPage(tk.Frame):
         sec = ttk.Entry(interfaseframe)
         sec.grid(row=1, column=0)
         button2 = ttk.Button(interfaseframe, text="SumUP 1min of movement",
-                            command=lambda: get_info(sec.get(), var_acc, val))
+                            command=lambda: self.get_info(sec.get(), var_acc, val))
         button2.grid(row=1, column=1)
         button3 = ttk.Button(self, text="Clear All",
                             command=lambda: self.clean_values(tempo, var_acc))
@@ -89,7 +89,7 @@ class AcelerationPage(tk.Frame):
 
     def draw_graphic(self, str, tempo, var_acc):
         data = get_file(str)
-        plot_graph(tempo, var_acc, data)
+        self.plot_graph(tempo, var_acc, data)
         a.clear()
         a.plot(tempo, var_acc, "#00A3E0", label="Variação da aceleração ao longo do tempo.")
         a.set_title('Variação da aceleração ao longo do tempo.')
@@ -100,9 +100,32 @@ class AcelerationPage(tk.Frame):
 
     def clean_values(self, tempo, var_acc):
         a.clear()
-    	for k in (range(len(var_acc))):
+        for k in range(len(var_acc)):
             var_acc.pop()
-    		tempo.pop()
+            tempo.pop()
+
+    def plot_graph(self, tempo, var_acc, data):
+    	for k in range(len(data[0])-1):
+    		soma = 0
+    		for index in [2,3,4]:
+    			soma = soma + abs(data[index][k]-data[index][k+1])
+    		var_acc.append(soma)
+    	for k in range(1,len(data[0])):
+    		tempo.append(data[0][k]/200)
+
+    def get_info(self, point, var_acc, val):
+    	#point = input("Em que sec queres começar a contar: ")
+    	val = 0
+    	for k in range(int(point)*200,int(point)*200+1200):
+    		val = val + var_acc[k]
+    	print(val)
+
+    def get_file(self, str):
+    	#doc = input("Escreva o nome do documento: ")
+    	direc = '../files/' + str + '.txt'
+    	print(direc)
+    	data=pd.read_csv(direc, sep="\t", header=None, engine='python', skiprows=3)
+    	return data
 
 #
 #    def on_key_press(self, event):
