@@ -3,7 +3,7 @@ matplotlib.use("TkAgg")
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import (
-    FigureCanvasTkAgg, NavigationToolbar2TkAgg)
+    FigureCanvasTkAgg, NavigationToolbar2Tk)
 # Implement the default Matplotlib key bindings.
 from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
@@ -64,8 +64,8 @@ class AcelerationPage(tk.Frame):
         var_acc = list()
         tk.Frame.__init__(self, parent)
         currentValue = tk.StringVar(self, "0")
-        interfaseframe = ttk.Frame(self)
-        interfaseframe.pack(side=tk.TOP)
+        interfaseframe = tk.Frame(self)
+        interfaseframe.pack(side=tk.TOP, fill='both')
         label1 = ttk.Label(interfaseframe, text="File Name: ")
         label1.grid(row=0, column=0)
         doc_name = ttk.Entry(interfaseframe)
@@ -73,14 +73,14 @@ class AcelerationPage(tk.Frame):
         button1 = ttk.Button(interfaseframe, text="Get data",
                             command=lambda: self.draw_graphic(doc_name.get(), tempo, var_acc))
         button1.grid(row=0, column=2)
-        label2 = tk.Label(interfaseframe, text="Sec to start the sum: ")
+        label2 = ttk.Label(interfaseframe, text="Sec to start the sum: ")
         label2.grid(row=1, column=0)
         sec = ttk.Entry(interfaseframe)
         sec.grid(row=1, column=1)
         button2 = ttk.Button(interfaseframe, text="SumUP 1min of movement",
                             command=lambda: self.get_info(sec.get(), var_acc, currentValue))
         button2.grid(row=2, column=0)
-        label3 = tk.Label(interfaseframe, textvariable=currentValue)
+        label3 = ttk.Label(interfaseframe, textvariable=currentValue)
         label3.grid(row=2, column=1)
         button3 = ttk.Button(self, text="Clear All",
                             command=lambda: self.clean_values(tempo, var_acc))
