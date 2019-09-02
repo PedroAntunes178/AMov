@@ -1,4 +1,4 @@
 @echo off
 conda activate
-python src/app.py %*
+python app.py %*
 pause
