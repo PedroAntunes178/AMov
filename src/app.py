@@ -124,6 +124,7 @@ class AcelerationPage(tk.Frame):
         #print(int(point)*200, '+', int(point)*200+1200)
         for k in range(int(point)*200,int(point)*200+2000):#sums up 10 sec of the movement
             val = val + var_acc[k]
+        val = float("{0:.2f}".format(val))
         currentValue.set(str(val))
         print(val)
 
