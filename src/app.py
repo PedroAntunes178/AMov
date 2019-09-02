@@ -32,7 +32,7 @@ class AMov(tk.Tk):
 
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
-        tk.Tk.iconbitmap(self,default='app_icon.ico')
+        tk.Tk.iconbitmap(self,default='icon.ico')
         tk.Tk.wm_title(self, "Movement Analysis")
         container = tk.Frame(self)
         container.pack(side="top", fill="both", expand = True)
