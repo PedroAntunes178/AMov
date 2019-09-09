@@ -77,7 +77,7 @@ class AcelerationPage(tk.Frame):
         label2.grid(row=1, column=0)
         sec = ttk.Entry(interfaseframe)
         sec.grid(row=1, column=1)
-        button2 = ttk.Button(interfaseframe, text="SumUP 1min of movement",
+        button2 = ttk.Button(interfaseframe, text="SumUP 10sec of movement",
                             command=lambda: self.get_info(sec.get(), var_acc, currentValue))
         button2.grid(row=2, column=0)
         label3 = ttk.Label(interfaseframe, textvariable=currentValue)
