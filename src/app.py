@@ -10,6 +10,7 @@ from matplotlib.figure import Figure
 from matplotlib import style
 import tkinter as tk
 from tkinter import ttk
+from tkinter import filedialog
 import pandas as pd
 import numpy as np
 
@@ -71,7 +72,7 @@ class AcelerationPage(tk.Frame):
         doc_name = ttk.Entry(interfaseframe)
         doc_name.grid(row=0, column=1)
         button1 = ttk.Button(interfaseframe, text="Get data",
-                            command=lambda: self.draw_graphic(doc_name.get(), tempo, var_acc))
+                            command=lambda: self.draw_graphic(filedialog.askopenfilename(title = "Select file",filetypes = (("Text files","*.txt"),("all files","*.*"))), tempo, var_acc))#doc_name.get(), tempo, var_acc))
         button1.grid(row=0, column=2)
         label2 = ttk.Label(interfaseframe, text="Sec to start the sum: ")
         label2.grid(row=1, column=0)
@@ -130,7 +131,7 @@ class AcelerationPage(tk.Frame):
 
     def get_file(self, str):
     	#doc = input("Escreva o nome do documento: ")
-    	direc = '../files/' + str + '.txt'
+    	direc = str#'../files/' + str + '.txt'
     	print(direc)
     	data=pd.read_csv(direc, sep="\t", header=None, engine='python', skiprows=3)
     	return data
