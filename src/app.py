@@ -65,15 +65,16 @@ class AcelerationPage(tk.Frame):
         var_acc = list()
         tk.Frame.__init__(self, parent)
         currentValue = tk.StringVar(self, "0")
+        currentFile = tk.StringVar(self, "None")
         interfaseframe = tk.Frame(self)
         interfaseframe.pack(side=tk.TOP, fill='both')
         label1 = ttk.Label(interfaseframe, text="File Name: ")
-        label1.grid(row=0, column=0)
-        doc_name = ttk.Entry(interfaseframe)
-        doc_name.grid(row=0, column=1)
+        label1.grid(row=0, column=1)
+        label4 = ttk.Label(interfaseframe, textvariable=currentFile)
+        label4.grid(row=0, column=2)
         button1 = ttk.Button(interfaseframe, text="Get data",
-                            command=lambda: self.draw_graphic(filedialog.askopenfilename(title = "Select file",filetypes = (("Text files","*.txt"),("all files","*.*"))), tempo, var_acc))#doc_name.get(), tempo, var_acc))
-        button1.grid(row=0, column=2)
+                            command=lambda: self.draw_graphic(currentFile, tempo, var_acc))#doc_name.get(), tempo, var_acc))
+        button1.grid(row=0, column=0)
         label2 = ttk.Label(interfaseframe, text="Sec to start the sum: ")
         label2.grid(row=1, column=0)
         sec = ttk.Entry(interfaseframe)
@@ -93,8 +94,9 @@ class AcelerationPage(tk.Frame):
         toolbar.update()
         canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
-    def draw_graphic(self, str, tempo, var_acc):
-        data = self.get_file(str)
+    def draw_graphic(self, currentFile, tempo, var_acc):
+        currentFile.set(filedialog.askopenfilename(title = "Select file",filetypes = (("Text files","*.txt"),("all files","*.*"))))
+        data = self.get_file(currentFile.get())
         self.plot_graph(tempo, var_acc, data)
         a.clear()
         a.plot(tempo, var_acc, "#00A3E0", label="Variação da aceleração ao longo do tempo.")
